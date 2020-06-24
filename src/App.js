@@ -15,21 +15,36 @@ class App extends React.Component {
     return (
       <div style={{ margin: "2em" }}>
         {this.state.posts.map((post) => {
+          var title;
+          if (post.boast_or_roast === "B") {
+            title = "Boast";
+          } else if (post.boast_or_roast === "R") {
+            title = "Roast";
+          } else {
+            title = "None";
+          }
+
+          var t = new Date(post.date);
+
           return (
             <>
-              <div className="ui card">
+              <div className="ui card" style={{ width: "40%" }}>
                 <div className="content">
-                  <div className="header">Steve Sanders</div>
-                  <div className="meta">Friends of Elliot</div>
-                  <div className="description">
-                    Steve wants to add you to the group
-                    <strong>best friends</strong>
-                  </div>
+                  <div className="header">{title}</div>
+                  <div className="meta">{t.toLocaleString()}</div>
+                  <div className="description">{post.text}</div>
                 </div>
                 <div className="extra content">
                   <div className="ui two buttons">
-                    <button className="ui green basic button">Approve</button>
-                    <button className="ui red basic button">Decline</button>
+                    <button className="ui green basic button">
+                      <i className="arrow alternate circle up icon"></i>Up vote
+                      <div className="ui label">{post.up_vote}</div>
+                    </button>
+                    <button className="ui red basic button">
+                      <i className="arrow alternate circle down icon"></i>Down
+                      vote
+                      <div className="ui label">{post.down_vote}</div>
+                    </button>
                   </div>
                 </div>
               </div>
