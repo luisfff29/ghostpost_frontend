@@ -61,7 +61,7 @@ class App extends React.Component {
           var t = new Date(post.date);
 
           return (
-            <>
+            <div key={post.url}>
               <div className="ui card" style={{ width: "40%" }}>
                 <div className="content">
                   <div className="header">{title}</div>
@@ -91,7 +91,7 @@ class App extends React.Component {
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           );
         })}
       </div>
