@@ -6,11 +6,13 @@ class App extends React.Component {
     super(props);
     this.state = { posts: [] };
   }
+
   componentDidMount() {
     fetch("http://localhost:8000/api/posts/")
       .then((res) => res.json())
       .then((data) => this.setState({ posts: data }));
   }
+
   render() {
     return (
       <div style={{ margin: "2em" }}>
@@ -33,6 +35,9 @@ class App extends React.Component {
                   <div className="header">{title}</div>
                   <div className="meta">{t.toLocaleString()}</div>
                   <div className="description">{post.text}</div>
+                </div>
+                <div className="extra content">
+                  Total votes: {post.total_votes}
                 </div>
                 <div className="extra content">
                   <div className="ui two buttons">
