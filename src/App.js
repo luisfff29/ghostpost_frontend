@@ -13,6 +13,38 @@ class App extends React.Component {
       .then((data) => this.setState({ posts: data }));
   }
 
+  upVote = (url) => {
+    fetch(url + "up_vote/", {
+      method: "POST",
+      dataType: "JSON",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      });
+    window.location.reload();
+  };
+
+  downVote = (url) => {
+    fetch(url + "down_vote/", {
+      method: "POST",
+      dataType: "JSON",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      });
+    window.location.reload();
+  };
+
   render() {
     return (
       <div style={{ margin: "2em" }}>
@@ -41,11 +73,17 @@ class App extends React.Component {
                 </div>
                 <div className="extra content">
                   <div className="ui two buttons">
-                    <button className="ui green basic button">
+                    <button
+                      className="ui green basic button"
+                      onClick={() => this.upVote(post.url)}
+                    >
                       <i className="arrow alternate circle up icon"></i>Up vote
                       <div className="ui label">{post.up_vote}</div>
                     </button>
-                    <button className="ui red basic button">
+                    <button
+                      className="ui red basic button"
+                      onClick={() => this.downVote(post.url)}
+                    >
                       <i className="arrow alternate circle down icon"></i>Down
                       vote
                       <div className="ui label">{post.down_vote}</div>
