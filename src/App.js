@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends React.Component {
@@ -18,15 +17,22 @@ class App extends React.Component {
         {this.state.posts.map((post) => {
           return (
             <>
-              <h1>{post.boast_or_roast}</h1>
-              <ul>
-                <li>{post.url}</li>
-                <li>{post.text}</li>
-                <li>{post.up_vote}</li>
-                <li>{post.down_vote}</li>
-                <li>{post.date}</li>
-                <li>{post.total_votes}</li>
-              </ul>
+              <div className="ui card">
+                <div className="content">
+                  <div className="header">Steve Sanders</div>
+                  <div className="meta">Friends of Elliot</div>
+                  <div className="description">
+                    Steve wants to add you to the group
+                    <strong>best friends</strong>
+                  </div>
+                </div>
+                <div className="extra content">
+                  <div className="ui two buttons">
+                    <button className="ui green basic button">Approve</button>
+                    <button className="ui red basic button">Decline</button>
+                  </div>
+                </div>
+              </div>
             </>
           );
         })}
