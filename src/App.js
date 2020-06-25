@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import { Route, NavLink } from "react-router-dom";
+import Posts from "./Posts.js";
 
 class App extends React.Component {
   constructor(props) {
@@ -48,52 +50,33 @@ class App extends React.Component {
   render() {
     return (
       <div style={{ margin: "2em" }}>
-        {this.state.posts.map((post) => {
-          var title;
-          if (post.boast_or_roast === "B") {
-            title = "Boast";
-          } else if (post.boast_or_roast === "R") {
-            title = "Roast";
-          } else {
-            title = "None";
-          }
-
-          var t = new Date(post.date);
-
-          return (
-            <div key={post.url}>
-              <div className="ui card" style={{ width: "40%" }}>
-                <div className="content">
-                  <div className="header">{title}</div>
-                  <div className="meta">{t.toLocaleString()}</div>
-                  <div className="description">{post.text}</div>
-                </div>
-                <div className="extra content">
-                  Total votes: {post.total_votes}
-                </div>
-                <div className="extra content">
-                  <div className="ui two buttons">
-                    <button
-                      className="ui green basic button"
-                      onClick={() => this.upVote(post.url)}
-                    >
-                      <i className="arrow alternate circle up icon"></i>Up vote
-                      <div className="ui label">{post.up_vote}</div>
-                    </button>
-                    <button
-                      className="ui red basic button"
-                      onClick={() => this.downVote(post.url)}
-                    >
-                      <i className="arrow alternate circle down icon"></i>Down
-                      vote
-                      <div className="ui label">{post.down_vote}</div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        <NavLink to="/boasts">All Boasts</NavLink>
+        <NavLink to="/roasts">All Roasts</NavLink>
+        <Route exact path="/">
+          <Posts
+            posts={this.state.posts}
+            upVote={this.upVote}
+            downVote={this.downVote}
+          />
+        </Route>
+        <Route path="/boasts">
+          <Posts
+            posts={this.state.posts.filter(
+              (post) => post.boast_or_roast === "B"
+            )}
+            upVote={this.upVote}
+            downVote={this.downVote}
+          />
+        </Route>
+        <Route path="/roasts">
+          <Posts
+            posts={this.state.posts.filter(
+              (post) => post.boast_or_roast === "R"
+            )}
+            upVote={this.upVote}
+            downVote={this.downVote}
+          />
+        </Route>
       </div>
     );
   }
