@@ -50,8 +50,30 @@ class App extends React.Component {
   render() {
     return (
       <div style={{ margin: "2em" }}>
-        <NavLink to="/boasts">All Boasts</NavLink>
-        <NavLink to="/roasts">All Roasts</NavLink>
+        <NavLink exact to="/">
+          <button class="ui animated button">
+            <div class="visible content">All Posts</div>
+            <div class="hidden content">
+              <i aria-hidden="true" class="arrow right icon"></i>
+            </div>
+          </button>
+        </NavLink>
+        <NavLink to="/boasts">
+          <button class="ui animated button">
+            <div class="visible content">Filter by Boasts</div>
+            <div class="hidden content">
+              <i aria-hidden="true" class="arrow right icon"></i>
+            </div>
+          </button>
+        </NavLink>
+        <NavLink to="/roasts">
+          <button class="ui animated button">
+            <div class="visible content">Filter by Roasts</div>
+            <div class="hidden content">
+              <i aria-hidden="true" class="arrow right icon"></i>
+            </div>
+          </button>
+        </NavLink>
         <Route exact path="/">
           <Posts
             posts={this.state.posts}

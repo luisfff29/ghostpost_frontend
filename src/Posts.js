@@ -4,7 +4,7 @@ function Posts(props) {
   return (
     <div>
       {props.posts.map((post) => (
-        <div key={post.url}>
+        <div key={post.url} style={{ padding: "1em" }}>
           <div className="ui card" style={{ width: "40%" }}>
             <div className="content">
               <div className="header">
