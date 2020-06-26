@@ -12,7 +12,11 @@ class App extends React.Component {
   componentDidMount() {
     fetch("http://localhost:8000/api/posts/")
       .then((res) => res.json())
-      .then((data) => this.setState({ posts: data }));
+      .then((data) =>
+        this.setState({
+          posts: data,
+        })
+      );
   }
 
   upVote = (url) => {
@@ -74,6 +78,14 @@ class App extends React.Component {
             </div>
           </button>
         </NavLink>
+        <NavLink to="/popular">
+          <button class="ui animated button">
+            <div class="visible content">Most Popular</div>
+            <div class="hidden content">
+              <i aria-hidden="true" class="arrow right icon"></i>
+            </div>
+          </button>
+        </NavLink>
         <Route exact path="/">
           <Posts
             posts={this.state.posts}
@@ -94,6 +106,15 @@ class App extends React.Component {
           <Posts
             posts={this.state.posts.filter(
               (post) => post.boast_or_roast === "R"
+            )}
+            upVote={this.upVote}
+            downVote={this.downVote}
+          />
+        </Route>
+        <Route path="/popular">
+          <Posts
+            posts={this.state.posts.sort(
+              (a, b) => b.total_votes - a.total_votes
             )}
             upVote={this.upVote}
             downVote={this.downVote}
