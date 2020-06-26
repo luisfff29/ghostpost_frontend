@@ -142,9 +142,9 @@ class App extends React.Component {
         </Route>
         <Route path="/popular">
           <Posts
-            posts={this.state.posts.sort(
-              (a, b) => b.total_votes - a.total_votes
-            )}
+            posts={this.state.posts
+              .concat()
+              .sort((a, b) => b.total_votes - a.total_votes)}
             upVote={this.upVote}
             downVote={this.downVote}
           />
