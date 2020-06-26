@@ -51,41 +51,70 @@ class App extends React.Component {
     window.location.reload();
   };
 
+  createPost = (event) => {
+    var data = {
+      boast_or_roast: event.target.boastOrRoast.value,
+      text: event.target.textArea.value,
+    };
+    fetch("http://localhost:8000/api/posts/", {
+      method: "POST",
+      dataType: "JSON",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      });
+  };
+
   render() {
     return (
       <div style={{ margin: "2em" }}>
         <NavLink exact to="/">
-          <button class="ui animated button">
-            <div class="visible content">All Posts</div>
-            <div class="hidden content">
-              <i aria-hidden="true" class="arrow right icon"></i>
+          <button className="ui animated button">
+            <div className="visible content">All Posts</div>
+            <div className="hidden content">
+              <i aria-hidden="true" className="arrow right icon"></i>
             </div>
           </button>
         </NavLink>
         <NavLink to="/boasts">
-          <button class="ui animated button">
-            <div class="visible content">Filter by Boasts</div>
-            <div class="hidden content">
-              <i aria-hidden="true" class="arrow right icon"></i>
+          <button className="ui animated button">
+            <div className="visible content">Filter by Boasts</div>
+            <div className="hidden content">
+              <i aria-hidden="true" className="arrow right icon"></i>
             </div>
           </button>
         </NavLink>
         <NavLink to="/roasts">
-          <button class="ui animated button">
-            <div class="visible content">Filter by Roasts</div>
-            <div class="hidden content">
-              <i aria-hidden="true" class="arrow right icon"></i>
+          <button className="ui animated button">
+            <div className="visible content">Filter by Roasts</div>
+            <div className="hidden content">
+              <i aria-hidden="true" className="arrow right icon"></i>
             </div>
           </button>
         </NavLink>
         <NavLink to="/popular">
-          <button class="ui animated button">
-            <div class="visible content">Most Popular</div>
-            <div class="hidden content">
-              <i aria-hidden="true" class="arrow right icon"></i>
+          <button className="ui animated button">
+            <div className="visible content">Most Popular</div>
+            <div className="hidden content">
+              <i aria-hidden="true" className="arrow right icon"></i>
             </div>
           </button>
         </NavLink>
+        <NavLink to="/create-post">
+          <button className="ui animated button">
+            <div className="visible content">Create Post</div>
+            <div className="hidden content">
+              <i aria-hidden="true" className="arrow right icon"></i>
+            </div>
+          </button>
+        </NavLink>
+
         <Route exact path="/">
           <Posts
             posts={this.state.posts}
@@ -119,6 +148,40 @@ class App extends React.Component {
             upVote={this.upVote}
             downVote={this.downVote}
           />
+        </Route>
+        <Route path="/create-post">
+          <form className="ui form" onSubmit={this.createPost}>
+            <div style={{ padding: "1em" }}>
+              <div className="grouped fields">
+                <label>This is a ...</label>
+                <div className="field">
+                  <label>
+                    <input type="radio" name="boastOrRoast" value="B" />
+                    Boast
+                  </label>
+                </div>
+                <div className="field">
+                  <label>
+                    <input type="radio" name="boastOrRoast" value="R" />
+                    Roast
+                  </label>
+                </div>
+              </div>
+              <div className="field">
+                <label>Text</label>
+                <textarea
+                  placeholder="Start typing here..."
+                  rows="3"
+                  name="textArea"
+                ></textarea>
+              </div>
+              <div className="field">
+                <button className="ui button" type="submit">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
         </Route>
       </div>
     );
