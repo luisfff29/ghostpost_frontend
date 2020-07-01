@@ -5,8 +5,21 @@ function Posts(props) {
     <div>
       {props.posts.map((post) => (
         <div key={post.url} style={{ padding: "1em" }}>
-          <div className="ui card" style={{ width: "40%" }}>
+          <div className="ui card" style={{ width: "60%" }}>
             <div className="content">
+              <div className="ui left action input" style={{ float: "right" }}>
+                <button
+                  className="ui red icon button"
+                  onClick={() => props.deletePost(post.magic)}
+                >
+                  <i className="close icon"></i>
+                </button>
+                <input
+                  type="text"
+                  placeholder="Ex. AbCd12"
+                  onChange={(e) => props.magicString(e)}
+                />
+              </div>
               <div className="header">
                 {post.boast_or_roast === "B" ? "Boast" : "Roast"}
               </div>

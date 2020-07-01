@@ -6,7 +6,7 @@ import Posts from "./Posts.js";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { posts: [] };
+    this.state = { posts: [], magic: "" };
   }
 
   componentDidMount() {
@@ -68,7 +68,27 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        alert(
+          "If you want to delete your post, save this magic code: " + data.magic
+        );
+        window.location.href = "http://localhost:3000";
       });
+  };
+
+  deletePost = (magic) => {
+    if (magic === this.state.magic) {
+      fetch("http://localhost:8000/api/posts/magic/" + magic, {
+        method: "DELETE",
+      });
+      console.log("Deleting...");
+      setTimeout(function () {
+        window.location.reload();
+      }, 1000);
+    }
+  };
+
+  magicString = (event) => {
+    this.setState({ magic: event.target.value });
   };
 
   render() {
@@ -120,6 +140,8 @@ class App extends React.Component {
             posts={this.state.posts}
             upVote={this.upVote}
             downVote={this.downVote}
+            deletePost={this.deletePost}
+            magicString={this.magicString}
           />
         </Route>
         <Route path="/boasts">
@@ -129,6 +151,8 @@ class App extends React.Component {
             )}
             upVote={this.upVote}
             downVote={this.downVote}
+            deletePost={this.deletePost}
+            magicString={this.magicString}
           />
         </Route>
         <Route path="/roasts">
@@ -138,6 +162,8 @@ class App extends React.Component {
             )}
             upVote={this.upVote}
             downVote={this.downVote}
+            deletePost={this.deletePost}
+            magicString={this.magicString}
           />
         </Route>
         <Route path="/popular">
@@ -147,6 +173,8 @@ class App extends React.Component {
               .sort((a, b) => b.total_votes - a.total_votes)}
             upVote={this.upVote}
             downVote={this.downVote}
+            deletePost={this.deletePost}
+            magicString={this.magicString}
           />
         </Route>
         <Route path="/create-post">
@@ -162,7 +190,12 @@ class App extends React.Component {
                 </div>
                 <div className="field">
                   <label>
-                    <input type="radio" name="boastOrRoast" value="R" />
+                    <input
+                      type="radio"
+                      name="boastOrRoast"
+                      value="R"
+                      required
+                    />
                     Roast
                   </label>
                 </div>
@@ -173,6 +206,7 @@ class App extends React.Component {
                   placeholder="Start typing here..."
                   rows="3"
                   name="textArea"
+                  required
                 ></textarea>
               </div>
               <div className="field">
