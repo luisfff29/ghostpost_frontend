@@ -14,7 +14,14 @@ To start using the React app you should follow first the process from the API re
 
 _Don't forget to run first the server Django API and then start the React app._
 
-Use the package manager [npm](https://www.npmjs.com/) to start the app
+Use the package manager [npm](https://www.npmjs.com/) to install node modules
+start the app
+
+```bash
+npm install
+```
+
+After the installation you can procede to start the app
 
 ```bash
 npm start
