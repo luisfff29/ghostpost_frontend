@@ -67,7 +67,7 @@ class App extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        setTimeout(console.log("Success:", data), 1000);
         alert(
           "If you want to delete your post, save this magic code: " + data.magic
         );
